@@ -1,0 +1,68 @@
+[[extend 'layout.html']]
+<div class="section">
+    <div class="container">
+        <h1 class="title has-text-centered has-text-primary">Sistema de Comisiones (MVC)</h1>
+        <hr>
+        
+        <div class="columns is-desktop">
+            <!-- Columna Izquierda: Formulario de Registro -->
+            <div class="column is-one-third">
+                <div class="box">
+                    <h2 class="subtitle has-text-info">Registrar Venta</h2>
+                    [[=form_venta]]
+                </div>
+            </div>
+            
+            <!-- Columna Derecha: Filtros y Tabla -->
+            <div class="column">
+                <div class="box">
+                    <h2 class="subtitle has-text-info">Filtrar Comisiones</h2>
+                    
+                    <!-- Filtros horizontales -->
+                    <form method="GET" action="[[=URL('index')]]">
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <label class="label is-small">Desde:</label>
+                                <input class="input is-small" type="date" name="fecha_inicio" required>
+                            </div>
+                            <div class="control">
+                                <label class="label is-small">Hasta:</label>
+                                <input class="input is-small" type="date" name="fecha_fin" required>
+                            </div>
+                            <div class="control" style="margin-top: 1.5rem;">
+                                <button class="button is-info is-small" type="submit">Filtrar</button>
+                                <a href="[[=URL('index')]]" class="button is-light is-small">Limpiar</a>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <hr>
+                    
+                    <!-- Tabla mejorada -->
+                    <table class="table is-fullwidth is-striped is-hoverable mt-4">
+                        <thead>
+                            <tr class="has-background-light">
+                                <th>Vendedor</th>
+                                <th>Fecha</th>
+                                <th>Monto Venta</th>
+                                <th>Comisión Generada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            [[for fila in reporte:]]
+                            <tr>
+                                <td>[[=fila['vendedor']]]</td>
+                                <td>[[=fila['fecha']]]</td>
+                                <td>$[[=fila['monto']]]</td>
+                                <td class="has-text-success has-text-weight-bold">
+                                    $[[=fila['comision']]]
+                                </td>
+                            </tr>
+                            [[pass]]
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

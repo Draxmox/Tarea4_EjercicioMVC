@@ -1,0 +1,43 @@
+timestamp: 2026-10-12T19:45:54.510931
+CREATE TABLE "auth_user"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username" CHAR(512) UNIQUE,
+    "email" CHAR(512) UNIQUE,
+    "password" CHAR(512),
+    "first_name" CHAR(512),
+    "last_name" CHAR(512),
+    "sso_id" CHAR(512),
+    "action_token" CHAR(512),
+    "last_password_change" TIMESTAMP,
+    "past_passwords_hash" TEXT
+);
+success!
+timestamp: 2026-10-12T19:45:54.522248
+CREATE TABLE "auth_user_tag_groups"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "tagpath" CHAR(512),
+    "record_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+timestamp: 2026-10-12T19:51:10.156331
+CREATE TABLE "vendedor"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "nombre" CHAR(512),
+    "email" CHAR(512)
+);
+success!
+timestamp: 2026-10-12T19:51:10.168407
+CREATE TABLE "regla_comision"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "monto_minimo" DOUBLE,
+    "porcentaje" DOUBLE
+);
+success!
+timestamp: 2026-10-12T19:51:10.175832
+CREATE TABLE "venta"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "vendedor_id" INTEGER REFERENCES "vendedor" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "monto" DOUBLE,
+    "fecha" DATE
+);
+success!
